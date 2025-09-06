@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Would You Be My Girlfriend?</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      text-align: center;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+    }
+    h1 {
+      margin-top: 100px;
+      font-size: 3em;
+      text-shadow: 2px 2px 5px #ff4b5c;
+    }
+    .hearts {
+      font-size: 2.5em;
+      margin: 20px 0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .buttons {
+      margin-top: 40px;
+      position: relative;
+    }
+    button {
+      background: #ff4b5c;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      position: absolute;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    #yesBtn {
+      background: #ff4081;
+      left: 40%;
+      top: 0;
+    }
+    #noBtn {
+      background: #999;
+      left: 55%;
+      top: 0;
+    }
+    .confetti {
+      position: fixed;
+      top: -10px;
+      font-size: 2em;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    #loveMessage {
+      display: none;
+      font-size: 4em;
+      color: #fff;
+      text-shadow: 0 0 20px #ff4b5c, 0 0 40px #ff80ab, 0 0 60px #ff4081;
+      margin-top: 50px;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff4b5c, 0 0 20px #ff80ab; }
+      to { text-shadow: 0 0 30px #ff4081, 0 0 60px #ff80ab; }
+    }
+    #videoContainer {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 600px;
+      z-index: 10;
+    }
+    #videoContainer iframe {
+      width: 100%;
+      height: 315px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Would you be my girlfriend, Kaylee? 💕🥰❤️</h1>
+  <div class="hearts">💘💝💓💞</div>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 😢</button>
+  </div>
+
+  <div id="videoContainer">
+    <iframe id="audioVideo" src="https://www.youtube.com/embed/mHM8Qa6zsVg?autoplay=1&rel=0&mute=0"
+            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+
+  <div id="loveMessage">I ❤️ You Kaylee!</div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const loveMessage = document.getElementById("loveMessage");
+    const videoContainer = document.getElementById("videoContainer");
+
+    yesBtn.onclick = function() {
+      alert("Yay! 💖 Kaylee said YES! 🥰🎉");
+      videoContainer.style.display = 'block';
+      startConfetti();
+      setTimeout(() => {
+        loveMessage.style.display = "block";
+      }, 6500);
+    };
+
+    noBtn.onmouseover = function() {
+      const x = Math.floor(Math.random() * (window.innerWidth - 100));
+      const y = Math.floor(Math.random() * (window.innerHeight - 100));
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    };
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("confetti");
+      const emojis = ["❤️", "💖", "💕", "💓", "💘", "💝"];
+      heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    function startConfetti() {
+      const interval = setInterval(createHeart, 200);
+      setTimeout(() => clearInterval(interval), 6000);
+    }
+  </script>
+</body>
+</html>
